@@ -1,0 +1,14 @@
+@import "./pages/Entry.scss";
+
+$cyan: #b9e7e7;
+
+.app {
+
+    .container {
+
+        // Entry Layout
+        .entry {
+            @include entry($cyan)
+        }
+    }
+}
