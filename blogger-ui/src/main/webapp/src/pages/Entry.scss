@@ -26,10 +26,10 @@
             padding: 10px;
             border: none;
             border-bottom: 1px solid gray;
-        }
 
-        input:focus {
-            outline: none;
+            &:focus {
+                outline: none;
+            }
         }
 
         button {
@@ -39,6 +39,11 @@
             background-color: teal;
             cursor: pointer;
             color: white;
+            transition: transform 0.3s;
+
+            &:active {
+                transform: scale(0.9);
+            }
         }
 
         p {

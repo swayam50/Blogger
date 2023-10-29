@@ -1,14 +1,26 @@
-@import "./pages/Entry.scss";
+@import './components/Header.scss';
+@import './components/Footer.scss';
+@import './pages/Entry.scss';
 
 $cyan: #b9e7e7;
 
 .app {
+    display: flex;
+    justify-content: center;
 
-    .container {
+    .app-container {
+        width: 65vw;
 
-        // Entry Layout
+        header {
+            @include header($cyan);
+        }
+
         .entry {
-            @include entry($cyan)
+            @include entry($cyan);
+        }
+
+        footer {
+            @include footer($cyan);
         }
     }
 }
