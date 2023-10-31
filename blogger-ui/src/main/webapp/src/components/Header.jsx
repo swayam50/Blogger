@@ -9,27 +9,31 @@ const Header = () => {
                 <div className="logo">
                     <img src={Logo} alt="blogger" />
                 </div>
-                <nav className="links">
-                    <Link className="link" to="/?category=art">
-                        <h6>ART</h6>
-                    </Link>
-                    <Link className="link" to="/?category=science">
-                        <h6>SCIENCE</h6>
-                    </Link>
-                    <Link className="link" to="/?category=technology">
-                        <h6>TECHNOLOGY</h6>
-                    </Link>
-                    <Link className="link" to="/?category=cinema">
-                        <h6>CINEMA</h6>
-                    </Link>
-                    <Link className="link" to="/?category=design">
-                        <h6>DESIGN</h6>
-                    </Link>
-                    <Link className="link" to="/?category=food">
-                        <h6>FOOD</h6>
-                    </Link>
-                    <span>Swayam</span>
-                    <span>Logout</span>
+                <nav>
+                    <div className="links">
+                        <Link className="link" to="/?category=art">
+                            <h6>ART</h6>
+                        </Link>
+                        <Link className="link" to="/?category=science">
+                            <h6>SCIENCE</h6>
+                        </Link>
+                        <Link className="link" to="/?category=technology">
+                            <h6>TECHNOLOGY</h6>
+                        </Link>
+                        <Link className="link" to="/?category=cinema">
+                            <h6>CINEMA</h6>
+                        </Link>
+                        <Link className="link" to="/?category=design">
+                            <h6>DESIGN</h6>
+                        </Link>
+                        <Link className="link" to="/?category=food">
+                            <h6>FOOD</h6>
+                        </Link>
+                    </div>
+                    <div className="profile">
+                        <span>Swayam</span>
+                        <span>Logout</span>
+                    </div>
                     <span className="write">
                         <Link className="link" to="/create">Write</Link>
                     </span>

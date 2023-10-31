@@ -12,24 +12,53 @@
             }
         }
 
-        .links {
+        nav {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
 
-            .link {
-                text-decoration: none;
-                color: inherit;
+            .links {
+                display: flex;
+                align-items: center;
+                gap: 13px;
+                transition: all 0.3s;
+    
+                .link {
+                    position: relative;
 
-                h6 {
-                    font-size: 16px;
-                    font-weight: 300;
+                    h6 {
+                        font-size: 18px;
+                        font-weight: 300;
+                    }
+
+                    &:after {
+                        content: '';
+                        position: absolute;
+                        width: 100%;
+                        transform: scaleX(0);
+                        height: 1px;
+                        bottom: 0;
+                        left: 0;
+                        background-color: teal;
+                        transform-origin: bottom right;
+                        transition: transform 0.12s ease-out;
+                    }
+
+                    &:hover:after {
+                        transform: scaleX(1);
+                        transform-origin: bottom left;
+                    }
                 }
             }
 
-            span {
-                cursor: pointer;
+            .profile {
+                
+                span {
+                    padding: 0 5px;
+                    cursor: pointer;
+                }
             }
+
 
             .write {
                 background-color: $cyan;

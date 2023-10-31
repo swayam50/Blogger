@@ -1,6 +1,7 @@
 @import './components/Header.scss';
 @import './components/Footer.scss';
 @import './pages/Entry.scss';
+@import './pages/Home.scss';
 
 $cyan: #b9e7e7;
 
@@ -8,8 +9,13 @@ $cyan: #b9e7e7;
     display: flex;
     justify-content: center;
 
+    .link {
+        text-decoration: none;
+        color: inherit;
+    }
+
     .app-container {
-        width: 65vw;
+        width: 64vw;
 
         header {
             @include header($cyan);
@@ -17,6 +23,10 @@ $cyan: #b9e7e7;
 
         .entry {
             @include entry($cyan);
+        }
+
+        .home {
+            @include home($cyan);
         }
 
         footer {

@@ -5,7 +5,7 @@ const Login = () => {
     return (
         <div className="entry">
             <form action="POST">
-                <h1>Login</h1>
+                <h1>LOGIN</h1>
                 <input type="text" placeholder="username" required />
                 <input type="password" placeholder="password" required />
                 <button>login</button>
