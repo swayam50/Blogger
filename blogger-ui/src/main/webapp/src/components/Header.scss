@@ -1,4 +1,4 @@
-@mixin header($cyan) {
+@mixin header($jagged-ice) {
     
     .header-container {
         padding: 10px 0px;
@@ -61,7 +61,7 @@
 
 
             .write {
-                background-color: $cyan;
+                background-color: $jagged-ice;
                 width: 50px;
                 height: 50px;
                 border-radius: 50%;
