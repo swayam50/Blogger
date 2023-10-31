@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BloggerRestApp {
+public class BloggerRESTApp {
 
 	public static void main(String[] args) {
-		var context = SpringApplication.run(BloggerRestApp.class, args);
+		var context = SpringApplication.run(BloggerRESTApp.class, args);
 	}
 
 }
