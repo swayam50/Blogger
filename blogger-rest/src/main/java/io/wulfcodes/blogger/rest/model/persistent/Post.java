@@ -2,13 +2,9 @@ package io.wulfcodes.blogger.rest.model.persistent;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 
 import static java.time.ZoneOffset.UTC;
 
-@Entity
-@Table(name = "posts")
 public class Post {
 
     private Long id;

@@ -1,19 +1,26 @@
 package io.wulfcodes.blogger.rest.model.persistent;
 
-import java.sql.Blob;
-import java.util.Objects;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 
-@Entity
+import java.util.Objects;
+
 @Table(name = "users")
 public class User {
 
+    @Id
+    @Column("u_id")
     private Integer id;
+
+    @Column("u_email")
     private String email;
+
+    @Column("u_username")
     private String username;
+
+    @Column("u_password")
     private String password;
-    private Blob image;
 
     public User() {}
 
@@ -38,10 +45,6 @@ public class User {
         return this.password;
     }
 
-    public Blob getImage() {
-        return this.image;
-    }
-
     public void setId(Integer id) {
         this.id = id;
     }
@@ -56,10 +59,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public void setImage(Blob image) {
-        this.image = image;
     }
 
     public User id(Integer id) {
@@ -82,11 +81,6 @@ public class User {
         return this;
     }
 
-    public User image(Blob image) {
-        this.image = image;
-        return this;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (obj == this)    return true;
@@ -99,18 +93,17 @@ public class User {
         return Objects.equals(this.id, that.id)
             && Objects.equals(this.email, that.email)
             && Objects.equals(this.username, that.username)
-            && Objects.equals(this.password, that.password)
-            && Objects.equals(this.image, that.image);
+            && Objects.equals(this.password, that.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, username, password, image);
+        return Objects.hash(id, email, username, password);
     }
 
     @Override
     public String toString() {
-        return String.format("User[id=%d, email=%s, username=%s, password=%s, image=%s]",
-                             id.intValue(), email, username, password, image.toString());
+        return String.format("User[id=%d, email=%s, username=%s, password=%s]",
+                             id.intValue(), email, username, password);
     }
 }
