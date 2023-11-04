@@ -24,7 +24,7 @@ const router = createBrowserRouter([
                 element: <ReadPost />
             },
             {
-                path: '/create',
+                path: '/publish',
                 element: <WritePost />
             }
         ]
