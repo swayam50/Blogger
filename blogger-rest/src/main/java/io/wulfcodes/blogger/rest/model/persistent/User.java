@@ -1,17 +1,19 @@
 package io.wulfcodes.blogger.rest.model.persistent;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.domain.Persistable;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.Objects;
 
 @Table(name = "users")
-public class User {
+public class User implements Persistable<String> {
 
     @Id
     @Column("u_id")
-    private Integer id;
+    private String id;
 
     @Column("u_email")
     private String email;
@@ -22,14 +24,27 @@ public class User {
     @Column("u_password")
     private String password;
 
+    @Transient
+    private Boolean isNewUser;
+
     public User() {}
+
+    public User(String id, Boolean isNewUser) {
+        this.id = id;
+        this.isNewUser = isNewUser;
+    }
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
-    public Integer getId() {
+    @Override
+    public boolean isNew() {
+        return Objects.nonNull(isNewUser) ? isNewUser.booleanValue() : false;
+    }
+
+    public String getId() {
         return this.id;
     }
 
@@ -45,7 +60,9 @@ public class User {
         return this.password;
     }
 
-    public void setId(Integer id) {
+    public Boolean getIsNewUser() {return this.isNewUser;}
+
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -61,7 +78,11 @@ public class User {
         this.password = password;
     }
 
-    public User id(Integer id) {
+    public void setIsNewUser(Boolean isNewUser) {
+        this.isNewUser = isNewUser;
+    }
+
+    public User id(String id) {
         this.id = id;
         return this;
     }
@@ -78,6 +99,11 @@ public class User {
 
     public User password(String password) {
         this.password = password;
+        return this;
+    }
+
+    public User isNewUser(Boolean isNewUser) {
+        this.isNewUser = isNewUser;
         return this;
     }
 
@@ -103,7 +129,7 @@ public class User {
 
     @Override
     public String toString() {
-        return String.format("User[id=%d, email=%s, username=%s, password=%s]",
-                             id.intValue(), email, username, password);
+        return String.format("User[id=%s, email=%s, username=%s, password=%s]",
+                             id, email, username, password);
     }
 }

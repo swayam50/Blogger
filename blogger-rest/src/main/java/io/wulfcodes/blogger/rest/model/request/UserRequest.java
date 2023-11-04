@@ -1,17 +1,10 @@
 package io.wulfcodes.blogger.rest.model.request;
 
-import io.wulfcodes.blogger.rest.model.persistent.User;
-
 public class UserRequest {
-    private Integer id;
     private String email;
     private String username;
     private String password;
     private String encodedImage;
-
-    public Integer getId() {
-        return this.id;
-    }
 
     public String getEmail() {
         return this.email;
@@ -27,10 +20,6 @@ public class UserRequest {
 
     public String getEncodedImage() {
         return this.encodedImage;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public void setEmail(String email) {

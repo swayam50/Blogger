@@ -11,8 +11,8 @@ public class Post {
     private String title;
     private String description;
     private String image;
-    private LocalDateTime datetime;
-    private Integer userId;
+    private LocalDateTime publishedOn;
+    private String userId;
 
     public Post() {}
 
@@ -32,11 +32,11 @@ public class Post {
         return this.image;
     }
 
-    public LocalDateTime getDatetime() {
-        return this.datetime;
+    public LocalDateTime getPublishedOn() {
+        return this.publishedOn;
     }
 
-    public Integer getUserId() {
+    public String getUserId() {
         return this.userId;
     }
 
@@ -56,11 +56,11 @@ public class Post {
         this.image = image;
     }
 
-    public void setDatetime(LocalDateTime datetime) {
-        this.datetime = datetime;
+    public void setPublishedOn(LocalDateTime publishedOn) {
+        this.publishedOn = publishedOn;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -84,12 +84,12 @@ public class Post {
         return this;
     }
 
-    public Post datetime(LocalDateTime datetime) {
-        this.datetime = datetime;
+    public Post publishedOn(LocalDateTime publishedOn) {
+        this.publishedOn = publishedOn;
         return this;
     }
 
-    public Post userId(Integer userId) {
+    public Post userId(String userId) {
         this.userId = userId;
         return this;
     }
@@ -107,19 +107,19 @@ public class Post {
                 && Objects.equals(this.title, that.title)
                 && Objects.equals(this.description, that.description)
                 && Objects.equals(this.image, that.image)
-                && Objects.equals(this.datetime, that.datetime)
+                && Objects.equals(this.publishedOn, that.publishedOn)
                 && Objects.equals(this.userId, that.userId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, image, datetime, userId);
+        return Objects.hash(id, title, description, image, publishedOn, userId);
     }
 
     @Override
     public String toString() {
-        return String.format("User[id=%d, title=%s, description=%s, image=%s, datetime=%d, userId=%d]",
-                             id.longValue(), title, description, image, datetime.toEpochSecond(UTC), userId.intValue());
+        return String.format("User[id=%d, title=%s, description=%s, image=%s, publishedOn=%d, userId=%d]",
+                             id.longValue(), title, description, image, publishedOn.toEpochSecond(UTC), userId);
     }
 
 
