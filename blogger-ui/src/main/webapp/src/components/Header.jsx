@@ -35,7 +35,7 @@ const Header = () => {
                         <span>Logout</span>
                     </div>
                     <span className="write">
-                        <Link className="link" to="/create">Write</Link>
+                        <Link className="link" to="/publish">Write</Link>
                     </span>
                 </nav>
             </div>
