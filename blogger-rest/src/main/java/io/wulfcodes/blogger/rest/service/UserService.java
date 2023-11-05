@@ -1,15 +1,12 @@
 package io.wulfcodes.blogger.rest.service;
 
+import java.util.UUID;
 import io.wulfcodes.blogger.rest.model.persistent.Image;
 import io.wulfcodes.blogger.rest.model.persistent.User;
-import io.wulfcodes.blogger.rest.model.request.RegistrationRequest;
-import io.wulfcodes.blogger.rest.model.request.UserRequest;
 import io.wulfcodes.blogger.rest.repository.UserRepository;
-import org.javatuples.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.UUID;
+import org.javatuples.Pair;
 
 @Service
 public class UserService {
@@ -17,11 +14,11 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public String saveUser(String email, String username, String password, String encodedImage) {
+    public String saveUser(String email, String username, String password, String profilePic) {
         String uuid = UUID.randomUUID().toString();
 
         User user = new User(uuid, true).email(email).username(username).password(password);
-        Image image = new Image(uuid, username, encodedImage);
+        Image image = new Image(uuid, username, profilePic);
 
         int rowsAffected = userRepository.insert(user);
         System.out.println("Rows Affected: " + rowsAffected);

@@ -21,13 +21,47 @@
             letter-spacing: 2px;
             align-self: center;
             color: teal;
-            margin-bottom: 20px;
+        }
+        
+        .profile-pic-input {
+            align-self: center;
+            border: 1px solid teal;
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            overflow: hidden;
+            position: relative;
+
+            &:hover {
+                transform: scale(1.1);;
+            }
+
+            input[type="file"] {
+                display: none;
+            }
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            label {
+                display: block;
+                overflow: hidden;
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                cursor: pointer;
+            }
         }
 
         input {
             padding: 10px;
             border: none;
-            border-bottom: 1px solid gray;
+            border-bottom: 1px solid teal;
 
             &:focus {
                 outline: none;

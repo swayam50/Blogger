@@ -1,4 +1,4 @@
-package io.wulfcodes.blogger.rest.config;
+package io.wulfcodes.blogger.rest.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

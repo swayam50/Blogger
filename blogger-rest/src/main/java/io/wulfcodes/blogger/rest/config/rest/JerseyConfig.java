@@ -1,4 +1,4 @@
-package io.wulfcodes.blogger.rest.config;
+package io.wulfcodes.blogger.rest.config.rest;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.ws.rs.ApplicationPath;

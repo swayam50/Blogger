@@ -1,18 +1,18 @@
 package io.wulfcodes.blogger.rest.route;
 
-import io.wulfcodes.blogger.rest.model.request.RegistrationRequest;
-import io.wulfcodes.blogger.rest.model.response.RegistrationResponse;
-import io.wulfcodes.blogger.rest.service.UserService;
-import jakarta.ws.rs.BeanParam;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.BeanParam;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.javatuples.Pair;
+import io.wulfcodes.blogger.rest.model.request.RegistrationRequest;
+import io.wulfcodes.blogger.rest.model.response.RegistrationResponse;
+import io.wulfcodes.blogger.rest.service.UserService;
 
 import static jakarta.ws.rs.core.Response.Status.CONFLICT;
 import static jakarta.ws.rs.core.Response.Status.OK;
@@ -44,7 +44,7 @@ public class AuthController {
                            .build();
         }
 
-        String userId = userService.saveUser(request.getEmail(), request.getUsername(), passwordEncoder.encode(request.getPassword()), request.getImage());
+        String userId = userService.saveUser(request.getEmail(), request.getUsername(), passwordEncoder.encode(request.getPassword()), request.getProfilePic());
 
         return Response.status(OK)
                 .entity(RegistrationResponse.of(OK.getStatusCode(), "User saved with id '%s' successfully".formatted(userId)))

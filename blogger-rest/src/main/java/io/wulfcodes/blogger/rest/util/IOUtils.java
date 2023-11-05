@@ -25,6 +25,7 @@ public class IOUtils {
         String fileExtension = switch (imageParts[0]) {
             case "data:image/jpeg;base64"   -> "jpeg";
             case "data:image/png;base64"    -> "png";
+            case "data:image/webp;base64"   -> "webp";
             default                         -> "jpg";
         };
 

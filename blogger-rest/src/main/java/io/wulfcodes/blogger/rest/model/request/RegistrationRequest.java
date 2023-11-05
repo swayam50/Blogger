@@ -12,8 +12,8 @@ public class RegistrationRequest {
     @FormParam("password")
     private String password;
 
-    @FormParam("image")
-    private String image;
+    @FormParam("profilePic")
+    private String profilePic;
 
     public RegistrationRequest() {}
 
@@ -29,23 +29,8 @@ public class RegistrationRequest {
         return this.password;
     }
 
-    public String getImage() {
-        return this.image;
+    public String getProfilePic() {
+        return this.profilePic;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
 }
