@@ -1,0 +1,50 @@
+@import './components/Header.scss';
+@import './components/Footer.scss';
+@import './pages/Entry.scss';
+@import './pages/Home.scss';
+@import './pages/ReadPost.scss';
+@import './pages/WritePost.scss';
+
+$phthalo-blue: #010c80;
+$day-sky-blue: #77d4fc;
+$jagged-ice: #b9e7e7;
+
+
+
+.app {
+    display: flex;
+    justify-content: center;
+
+    .link {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .app-container {
+        width: 70vw;
+
+        header {
+            @include header($jagged-ice);
+        }
+
+        .entry {
+            @include entry($jagged-ice);
+        }
+
+        .home {
+            @include home($jagged-ice);
+        }
+
+        .read-post {
+            @include read-post;
+        }
+
+        .write-post {
+            @include write-post;
+        }
+
+        footer {
+            @include footer($jagged-ice);
+        }
+    }
+}

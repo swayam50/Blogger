@@ -1,2 +1,2 @@
 # Blogger
-A blogging application created using React and Jersey
+A blogging application created using React and Jersey.
