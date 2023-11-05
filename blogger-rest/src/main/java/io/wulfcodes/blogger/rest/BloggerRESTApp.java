@@ -8,6 +8,6 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class, SecurityAutoConfiguration.class})
 public class BloggerRESTApp {
 	public static void main(String[] args) {
-		try (var context = SpringApplication.run(BloggerRESTApp.class, args)) {}
+		var context = SpringApplication.run(BloggerRESTApp.class, args);
 	}
 }

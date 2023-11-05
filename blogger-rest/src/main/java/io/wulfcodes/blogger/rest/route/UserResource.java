@@ -29,11 +29,11 @@ public class UserResource {
         return Response.ok().entity("Hello World").build();
     }
 
-    @POST
-    @Produces(MediaType.APPLICATION_OCTET_STREAM_VALUE)
-    public Response addUser(UserRequest request) {
-        IOUtils.saveImageFile(String.format("%s-user-pic", request.getUsername()), request.getEncodedImage());
-        return Response.ok().entity("Saved").build();
-    }
+//    @POST
+//    @Produces(MediaType.APPLICATION_OCTET_STREAM_VALUE)
+//    public Response addUser(UserRequest request) {
+//        IOUtils.saveImageFile(String.format("%s-user-pic", request.getUsername()), request.getEncodedImage());
+//        return Response.ok().entity("Saved").build();
+//    }
 
 }

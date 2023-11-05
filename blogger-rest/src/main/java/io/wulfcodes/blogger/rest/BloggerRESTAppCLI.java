@@ -14,7 +14,7 @@ public class BloggerRESTAppCLI {
     @Autowired
     private UserService userService;
 
-    @Bean
+    // @Bean
     public CommandLineRunner runner() {
         return args -> {
 //            UserRequest userRequest = new UserRequest();
@@ -25,8 +25,8 @@ public class BloggerRESTAppCLI {
 //
 //            userService.saveUser(userRequest);
 
-            User user = userService.fetchUser("1fe4620a-ceb6-4be8-88dd-de3bdb56844d");
-            System.out.println(user);
+//            User user = userService.fetchUser("1fe4620a-ceb6-4be8-88dd-de3bdb56844d");
+//            System.out.println(user);
         };
     }
 }
