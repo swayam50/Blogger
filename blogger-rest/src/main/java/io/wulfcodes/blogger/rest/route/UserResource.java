@@ -2,16 +2,12 @@ package io.wulfcodes.blogger.rest.route;
 
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
-import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RestController;
-import io.wulfcodes.blogger.rest.model.request.UserRequest;
 import io.wulfcodes.blogger.rest.service.UserService;
-import io.wulfcodes.blogger.rest.util.IOUtils;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
