@@ -6,15 +6,16 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
+import org.javatuples.Triplet;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.javatuples.Pair;
+import io.wulfcodes.blogger.rest.repository.AuthService;
 import io.wulfcodes.blogger.rest.model.request.RegistrationRequest;
 import io.wulfcodes.blogger.rest.model.response.RegistrationResponse;
-import io.wulfcodes.blogger.rest.service.UserService;
 
 import static jakarta.ws.rs.core.Response.Status.CONFLICT;
+import static jakarta.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR;
 import static jakarta.ws.rs.core.Response.Status.OK;
 import static org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED_VALUE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -26,29 +27,21 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class AuthController {
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private AuthService authService;
 
     @POST
     @Path("/register")
     public Response userRegistration(@BeanParam RegistrationRequest request) {
-        Pair<Boolean, Boolean> email_username = userService.checkUserExistence(request.getEmail(), request.getUsername());
-        boolean emailExists = email_username.getValue0().booleanValue();
-        boolean usernameExists = email_username.getValue1().booleanValue();
+        Triplet<Boolean, Boolean, String> userSaved_userConflict_message = authService.registerUser(request.getEmail(), request.getUsername(), request.getPassword(), request.getProfilePic());
+        Boolean userSaved = userSaved_userConflict_message.getValue0();
+        Boolean userConflict = userSaved_userConflict_message.getValue1();
 
-        if (emailExists || usernameExists) {
-            return Response.status(CONFLICT)
-                           .entity(RegistrationResponse.of(CONFLICT.getStatusCode(), "%s already exists!".formatted(emailExists ? "Email" : "Username")))
-                           .build();
-        }
+        String message = userSaved_userConflict_message.getValue2();
+        Status status = userConflict ? CONFLICT : (userSaved ? OK : INTERNAL_SERVER_ERROR);
 
-        String userId = userService.saveUser(request.getEmail(), request.getUsername(), passwordEncoder.encode(request.getPassword()), request.getProfilePic());
+        RegistrationResponse response = RegistrationResponse.of(status.getStatusCode(), message);
 
-        return Response.status(OK)
-                .entity(RegistrationResponse.of(OK.getStatusCode(), "User saved with id '%s' successfully".formatted(userId)))
-                .build();
+        return Response.status(status).entity(response).build();
     }
 
     @POST

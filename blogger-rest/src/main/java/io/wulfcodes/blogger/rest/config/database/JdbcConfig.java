@@ -18,6 +18,10 @@ import com.zaxxer.hikari.HikariDataSource;
 @Configuration
 @EnableJdbcRepositories(basePackages = "io.wulfcodes.blogger.rest.repository")
 public class JdbcConfig extends AbstractJdbcConfiguration {
+
+    @Value("${spring.datasource.database}")
+    private String database;
+
     @Value("${spring.datasource.url}")
     private String url;
 
@@ -59,7 +63,7 @@ public class JdbcConfig extends AbstractJdbcConfiguration {
     @Bean
     @Primary
     @Qualifier(value = "transactionManager")
-    public TransactionManager transactionManager(DataSource dataSource) {
+    public TransactionManager fetchTransactionManager(DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);
     }
 
