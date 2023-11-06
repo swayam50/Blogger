@@ -10,18 +10,27 @@ import static io.wulfcodes.blogger.rest.model.value.ImageType.POST;
 
 @Document(collection = "images")
 public class Image {
-
     @Id
     @Field("imageId")
     private String id;
+
+    @Field("imageType")
     private ImageType imageType;
+
+    @Field("imageEncoded")
+    private String imageEncoded;
+
+    @Field("userId")
     private String userId;
+
     @Field("userUsername")
     private String username;
+
+    @Field("postId")
     private Long postId;
+
     @Field("postTitle")
     private String title;
-    private String imageEncoded;
 
     public Image() {}
 
@@ -37,5 +46,9 @@ public class Image {
         this.postId = postId;
         this.title = title;
         this.imageEncoded = imageEncoded;
+    }
+
+    public String getImageEncoded() {
+        return this.imageEncoded;
     }
 }

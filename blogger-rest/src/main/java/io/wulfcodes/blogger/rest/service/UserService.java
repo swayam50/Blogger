@@ -25,8 +25,7 @@ public class UserService {
     }
 
     public User fetchUser(String id) {
-        User user = userRepository.findById(id).orElse(new User().email("HOHOHOHO").password("NKSNDKLSA"));
-        return user;
+        return userRepository.findById(id).get();
     }
 
     public User updateUser() {

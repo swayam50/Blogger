@@ -1,5 +1,6 @@
 package io.wulfcodes.blogger.rest.route;
 
+import io.wulfcodes.blogger.rest.model.data.UserData;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.BeanParam;
 import jakarta.ws.rs.POST;
@@ -7,10 +8,10 @@ import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
-import org.javatuples.Triplet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import io.wulfcodes.blogger.rest.repository.AuthService;
+import org.javatuples.Triplet;
+import io.wulfcodes.blogger.rest.service.AuthService;
 import io.wulfcodes.blogger.rest.model.request.RegistrationRequest;
 import io.wulfcodes.blogger.rest.model.response.RegistrationResponse;
 
@@ -32,7 +33,9 @@ public class AuthController {
     @POST
     @Path("/register")
     public Response userRegistration(@BeanParam RegistrationRequest request) {
-        Triplet<Boolean, Boolean, String> userSaved_userConflict_message = authService.registerUser(request.getEmail(), request.getUsername(), request.getPassword(), request.getProfilePic());
+        UserData userData = new UserData(request.getEmail(), request.getUsername(), request.getPassword(), request.getProfilePic());
+
+        Triplet<Boolean, Boolean, String> userSaved_userConflict_message = authService.registerUser(userData);
         Boolean userSaved = userSaved_userConflict_message.getValue0();
         Boolean userConflict = userSaved_userConflict_message.getValue1();
 
