@@ -1,8 +1,6 @@
 package io.wulfcodes.blogger.rest.service;
 
 import java.util.Objects;
-
-import org.javatuples.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import io.wulfcodes.blogger.rest.model.persistent.Image;
