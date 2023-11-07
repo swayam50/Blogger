@@ -48,7 +48,31 @@ public class Image {
         this.imageEncoded = imageEncoded;
     }
 
+    public String getId() {
+        return this.id;
+    }
+
+    public ImageType getImageType() {
+        return this.imageType;
+    }
+
     public String getImageEncoded() {
         return this.imageEncoded;
+    }
+
+    public String getUserId() {
+        return this.userId;
+    }
+
+    public String getUsername() {
+        return this.username;
+    }
+
+    public Long getPostId() {
+        return this.postId;
+    }
+
+    public String getTitle() {
+        return this.title;
     }
 }

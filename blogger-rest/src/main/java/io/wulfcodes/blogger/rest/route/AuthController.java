@@ -9,6 +9,7 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.javatuples.Triplet;
 import io.wulfcodes.blogger.rest.service.AuthService;
 import io.wulfcodes.blogger.rest.model.request.RegistrationRequest;

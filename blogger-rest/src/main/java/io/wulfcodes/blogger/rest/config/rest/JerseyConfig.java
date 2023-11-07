@@ -11,7 +11,7 @@ public class JerseyConfig extends ResourceConfig {
 
     @PostConstruct
     private void init() {
-        packages("io.wulfcodes.blogger.rest.route", "io.wulfcodes.blogger.rest.provider");
+        packages("io.wulfcodes.blogger.rest.route", "io.wulfcodes.blogger.rest.filter", "io.wulfcodes.blogger.rest.provider");
     }
 
 }

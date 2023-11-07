@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import useApi from '../hooks/useApi';
+import { formClient } from '../configs/axios-conf';
+import { userRegistration } from '../apis/AuthEndpoints';
 import { convertFileToBase64String } from '../utils/IOUtils';
 import DefaultProfPic from '../resources/img/default-prof.jpg';
 
@@ -11,6 +14,14 @@ const Register = () => {
         profilePic: null
     });
 
+    // const [registrationRequest, setRegistrationRequest] = useState({
+    //     client: formClient,
+    //     endpoint: {},
+    //     executeRequest: false
+    // });
+
+    // const [result, error, loading] = useApi(registrationRequest);
+
     const handleTextChange = event => {
         let { name: field, value } = event.target;
         setFormInputs(inputs => ({...inputs, [field]: value}));
@@ -18,17 +29,23 @@ const Register = () => {
 
     const handleImageChange = event => {
         let image = event.target.files[0];
-        setFormInputs(inputs => ({...inputs, profilePic: image}))
+        setFormInputs(inputs => ({...inputs, profilePic: image}));
     };
 
     const handleSubmit = event => {
         event.preventDefault();
 
-        let user = {...formInputs, profilePic: null};
+        let userData = {...formInputs, profilePic: null};
         
         convertFileToBase64String(formInputs.profilePic, null)
-            .then(encodedImage => user.profilePic = encodedImage)
-            .catch(defaultImage => user.profilePic = defaultImage);
+            .then(encodedImage => userData.profilePic = encodedImage)
+            .catch(defaultImage => userData.profilePic = defaultImage);
+
+        console.log(userData);
+
+        formClient.request(userRegistration(userData))
+        .then(result => console.log(result))
+        .catch(error => console.error(error));
     }
 
     return (
