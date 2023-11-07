@@ -43,6 +43,7 @@ public class User implements Persistable<String> {
         return Objects.nonNull(isNewUser) ? isNewUser.booleanValue() : false;
     }
 
+    @Override
     public String getId() {
         return this.id;
     }
