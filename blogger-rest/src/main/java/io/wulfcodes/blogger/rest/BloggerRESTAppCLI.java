@@ -1,5 +1,6 @@
 package io.wulfcodes.blogger.rest;
 
+import io.wulfcodes.blogger.rest.repository.UserRepository;
 import io.wulfcodes.blogger.rest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -11,7 +12,9 @@ public class BloggerRESTAppCLI {
 
     @Bean
     public CommandLineRunner runner() {
-        return args -> {};
+        return args -> {
+
+        };
     }
 
 }

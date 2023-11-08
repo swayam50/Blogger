@@ -17,3 +17,11 @@ export default function useApi( {client, endpoint, executeApi} ) {
 
     return [result, error, loading];
 }
+
+    // const [registrationRequest, setRegistrationRequest] = useState({
+    //     client: formClient,
+    //     endpoint: {},
+    //     executeRequest: false
+    // });
+
+    // const [result, error, loading] = useApi(registrationRequest);

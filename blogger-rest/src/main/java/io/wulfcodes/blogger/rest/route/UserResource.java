@@ -33,7 +33,7 @@ public class UserResource {
     @GET
     @Path("/{userId}")
     public Response getUser(@PathParam("userId") String userId) {
-        User user = userService.fetchUser(userId);
+        User user = userService.fetchUserById(userId);
         Image image = imageService.fetchUserImage(userId);
 
         UserData userData = new UserData(user.getEmail(), user.getUsername(), image.getImageEncoded());

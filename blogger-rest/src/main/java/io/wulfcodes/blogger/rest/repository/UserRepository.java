@@ -15,7 +15,9 @@ public interface UserRepository extends CrudRepository<User, String> {
     @Query("INSERT INTO users (u_id, u_email, u_username, u_password) VALUES (:#{#user.id}, :#{#user.email}, :#{#user.username}, :#{#user.password})")
     int insert(@Param("user") User user);
 
-    @Query("SELECT * FROM users WHERE u_email = :email OR u_username = :username")
+    @Query("SELECT u_email, u_username FROM users WHERE u_email = :email OR u_username = :username")
     Optional<User> findByEmailOrUsername(String email, String username);
+
+    Optional<User> findByUsername(String username);
 
 }

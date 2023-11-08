@@ -1,7 +1,7 @@
 import React from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Page from './layouts/Page';
-import Entry from './layouts/Entry';
+import Auth from './layouts/Auth';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Home from './pages/Home';
@@ -30,15 +30,15 @@ const router = createBrowserRouter([
         ]
     },
     {
-        path: '/entry',
-        element: <Entry />,
+        path: '/auth',
+        element: <Auth />,
         children: [
             {
-                path: '/entry/login',
+                path: '/auth/login',
                 element: <Login />
             },
             {
-                path: '/entry/register',
+                path: '/auth/register',
                 element: <Register />
             }
         ]

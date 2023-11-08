@@ -1,6 +1,6 @@
 @import './components/Header.scss';
 @import './components/Footer.scss';
-@import './pages/Entry.scss';
+@import './pages/Auth.scss';
 @import './pages/Home.scss';
 @import './pages/ReadPost.scss';
 @import './pages/WritePost.scss';
@@ -27,8 +27,8 @@ $jagged-ice: #b9e7e7;
             @include header($jagged-ice);
         }
 
-        .entry {
-            @include entry($jagged-ice);
+        .auth {
+            @include auth($jagged-ice);
         }
 
         .home {

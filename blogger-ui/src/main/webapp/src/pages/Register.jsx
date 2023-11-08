@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import useApi from '../hooks/useApi';
+import { Link, useNavigate } from 'react-router-dom';
 import { formClient } from '../configs/axios-conf';
 import { userRegistration } from '../apis/AuthEndpoints';
 import { convertFileToBase64String } from '../utils/IOUtils';
@@ -14,13 +13,9 @@ const Register = () => {
         profilePic: null
     });
 
-    // const [registrationRequest, setRegistrationRequest] = useState({
-    //     client: formClient,
-    //     endpoint: {},
-    //     executeRequest: false
-    // });
+    const [error, setError] = useState(null);
 
-    // const [result, error, loading] = useApi(registrationRequest);
+    const navigate = useNavigate();
 
     const handleTextChange = event => {
         let { name: field, value } = event.target;
@@ -32,24 +27,29 @@ const Register = () => {
         setFormInputs(inputs => ({...inputs, profilePic: image}));
     };
 
-    const handleSubmit = event => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
         let userData = {...formInputs, profilePic: null};
         
-        convertFileToBase64String(formInputs.profilePic, null)
-            .then(encodedImage => userData.profilePic = encodedImage)
-            .catch(defaultImage => userData.profilePic = defaultImage);
-
-        console.log(userData);
-
-        formClient.request(userRegistration(userData))
-        .then(result => console.log(result))
-        .catch(error => console.error(error));
+        try {
+            userData = {...formInputs, profilePic: await convertFileToBase64String(formInputs.profilePic, null)};
+        } catch (defaultProfilePic) {
+            userData = {...formInputs, profilePic: defaultProfilePic};
+        }
+    
+        try {
+            const result = await formClient.request(userRegistration(userData));
+            console.info(result.data);
+            navigate('/auth/login');
+        } catch (error) {
+            console.error(error.response.data);
+            setError(error.response.data.message);
+        }
     }
 
     return (
-        <div className="entry">
+        <div className="auth">
             <form method="POST" onSubmit={handleSubmit}>
                 <h1>REGISTER</h1>
                 <div className="profile-pic-input">
@@ -67,8 +67,8 @@ const Register = () => {
                 <input type="email" placeholder="email" name="email" onChange={handleTextChange} required />
                 <input type="text" placeholder="password" name="password" onChange={handleTextChange} required />
                 <button>register</button>
-                <p>This is an error!</p>
-                <span>Already have an account? <Link to="/entry/login">login</Link></span>
+                {error && <p>{error}</p>}
+                <span>Already have an account? <Link to="/auth/login">login</Link></span>
             </form>
         </div>
     );

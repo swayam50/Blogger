@@ -6,6 +6,8 @@ import org.javatuples.Pair;
 import io.wulfcodes.blogger.rest.model.persistent.User;
 import io.wulfcodes.blogger.rest.repository.UserRepository;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
 
@@ -24,7 +26,11 @@ public class UserService {
         return rowsAffected == 1;
     }
 
-    public User fetchUser(String id) {
+    public Optional<User> fetchUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    public User fetchUserById(String id) {
         return userRepository.findById(id).get();
     }
 

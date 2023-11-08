@@ -9,7 +9,6 @@ import java.util.Base64;
 
 public class IOUtils {
     private IOUtils() {}
-
     public static void saveFile(String path, String fileName, String fileExtension, byte[] data) {
         try (OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(new File(String.format("%s/%s.%s", path, fileName, fileExtension))))) {
             outputStream.write(data);

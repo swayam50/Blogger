@@ -1,10 +1,10 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 
-const Entry = () => {
+const Auth = () => {
     return (
         <Outlet />
     );
 };
 
-export default Entry;
+export default Auth;

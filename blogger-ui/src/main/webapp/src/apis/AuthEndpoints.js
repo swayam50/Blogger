@@ -2,12 +2,14 @@ export const userRegistration = userData => ({
     method: 'post',
     url: '/auth/register',
     data: new URLSearchParams(userData),
-    maxBodyLength: Infinity
+    maxBodyLength: Infinity,
+    maxContentLength: Infinity
 });
 
-export const userLogin = () => ({
+export const userLogin = userData => ({
     method: 'post',
-    url: '/auth/login'
+    url: '/auth/login',
+    data: new URLSearchParams(userData)
 });
 
 export const userLogout = () => ({
