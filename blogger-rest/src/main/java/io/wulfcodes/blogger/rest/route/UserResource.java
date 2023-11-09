@@ -14,6 +14,8 @@ import io.wulfcodes.blogger.rest.model.data.UserData;
 import io.wulfcodes.blogger.rest.model.persistent.Image;
 import io.wulfcodes.blogger.rest.model.persistent.User;
 import io.wulfcodes.blogger.rest.model.response.UserResponse;
+import io.wulfcodes.blogger.rest.provider.annotation.Authenticated;
+import io.wulfcodes.blogger.rest.authenticator.BasicAuthenticator;
 
 import static jakarta.ws.rs.core.Response.Status.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -22,6 +24,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @Path("/users")
 @Consumes(APPLICATION_JSON_VALUE)
 @Produces(APPLICATION_JSON_VALUE)
+@Authenticated(by = BasicAuthenticator.class)
 public class UserResource {
 
     @Autowired

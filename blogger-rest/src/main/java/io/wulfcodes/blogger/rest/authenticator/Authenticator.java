@@ -1,12 +1,12 @@
 package io.wulfcodes.blogger.rest.authenticator;
 
-import jakarta.ws.rs.core.Cookie;
+import jakarta.ws.rs.core.UriInfo;
 import io.wulfcodes.blogger.rest.model.value.AuthenticationFormat;
 import io.wulfcodes.blogger.rest.model.response.AuthResponse;
 
 public interface Authenticator {
 
-    AuthResponse validateToken(String authToken, Cookie cookie);
+    AuthResponse validateToken(String authToken, UriInfo uriInfo);
 
     AuthenticationFormat getAuthenticationFormat();
 
