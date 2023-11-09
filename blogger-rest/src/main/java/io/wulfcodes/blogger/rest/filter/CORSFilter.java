@@ -16,10 +16,11 @@ import static org.springframework.http.HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN;
 @Provider
 public class CORSFilter implements ContainerResponseFilter {
     @Override
-    public void filter(ContainerRequestContext containerRequestContext, ContainerResponseContext containerResponseContext) throws IOException {
-        containerResponseContext.getHeaders().add(ACCESS_CONTROL_ALLOW_ORIGIN, "http://127.0.0.1:3000");
-        containerResponseContext.getHeaders().add(ACCESS_CONTROL_ALLOW_HEADERS, "Authorization, Accept, Content-Type");
-        containerResponseContext.getHeaders().add(ACCESS_CONTROL_ALLOW_CREDENTIALS, "true");
-        containerResponseContext.getHeaders().add(ACCESS_CONTROL_ALLOW_METHODS, "POST");
+    public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) throws IOException {
+        responseContext.getHeaders().add(ACCESS_CONTROL_ALLOW_ORIGIN, "http://127.0.0.1:3000");
+        responseContext.getHeaders().add(ACCESS_CONTROL_ALLOW_HEADERS, "Authorization, Accept, Content-Type");
+        responseContext.getHeaders().add(ACCESS_CONTROL_ALLOW_CREDENTIALS, "true");
+        responseContext.getHeaders().add(ACCESS_CONTROL_ALLOW_METHODS, "POST");
     }
+
 }
