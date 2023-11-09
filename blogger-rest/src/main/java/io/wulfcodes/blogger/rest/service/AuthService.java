@@ -1,13 +1,14 @@
 package io.wulfcodes.blogger.rest.service;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.javatuples.Pair;
-import org.javatuples.Triplet;
 import org.javatuples.Quartet;
+import io.wulfcodes.blogger.rest.tokenizer.JWTTokenizer;
 import io.wulfcodes.blogger.rest.model.persistent.User;
 
 @Service
@@ -21,6 +22,9 @@ public class AuthService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private JWTTokenizer jwtTokenizer;
 
     public Quartet<Boolean, Boolean, String, String> registerUser(String email, String username, String password, String profilePic) {
         Pair<Boolean, Boolean> emailExists_usernameExists = userService.checkUserExistence(email, username);
@@ -44,14 +48,15 @@ public class AuthService {
         return Quartet.with(true, false, userId, "User with id '%s' registered successfully.".formatted(userId));
     }
 
-    public Triplet<Boolean, Boolean, String> loginUser(String username, String password) {
+    public Quartet<Boolean, Boolean, String, String> loginUser(String username, String password) {
         Optional<User> userOptional = userService.fetchUserByUsername(username);
         return userOptional.map(user -> {
                                     boolean isUserValid = passwordEncoder.matches(password, user.getPassword());
                                     String message = isUserValid ? "User validated successfully." : "Are you sure the password is correct?";
-                                    return Triplet.with(true, isUserValid, message);
+                                    String authToken = isUserValid ? jwtTokenizer.createToken(Map.of("userId", user.getId(), "username", user.getUsername())) : null;
+                                    return Quartet.with(true, isUserValid, message, authToken);
                                 })
-                           .orElseGet(() -> Triplet.with(false, false, "User not found!"));
+                           .orElseGet(() -> Quartet.with(false, false, "User not found!", null));
 
     }
 

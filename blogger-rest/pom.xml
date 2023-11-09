@@ -19,6 +19,7 @@
         <javatuples.version>1.2</javatuples.version>
         <mysql.version>8.2.0</mysql.version>
         <mongodb.version>4.11.0</mongodb.version>
+        <jwt.version>4.4.0</jwt.version>
     </properties>
     <dependencies>
         <dependency>
@@ -72,6 +73,12 @@
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
             <version>${hikaricp.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>${jwt.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

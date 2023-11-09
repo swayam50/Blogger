@@ -7,12 +7,12 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.NewCookie;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 import jakarta.ws.rs.core.UriInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.javatuples.Triplet;
 import org.javatuples.Quartet;
 import io.wulfcodes.blogger.rest.service.AuthService;
 import io.wulfcodes.blogger.rest.model.request.RegistrationRequest;
@@ -29,6 +29,7 @@ import static jakarta.ws.rs.core.HttpHeaders.CONTENT_LOCATION;
 import static jakarta.ws.rs.core.MediaType.APPLICATION_FORM_URLENCODED;
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 import static jakarta.ws.rs.core.Response.Status.UNAUTHORIZED;
+import static jakarta.ws.rs.core.NewCookie.DEFAULT_MAX_AGE;
 
 @Controller
 @Path("/auth")
@@ -53,9 +54,8 @@ public class AuthController {
         String message = userSaved_userConflict_userId_message.getValue3();
         Status status = userConflict ? CONFLICT : (userSaved ? CREATED : INTERNAL_SERVER_ERROR);
 
-        AuthResponse response = AuthResponse.of(status.getStatusCode(), message);
-
-        return Response.status(status).entity(response)
+        return Response.status(status)
+                       .entity(AuthResponse.of(status.getStatusCode(), message))
                        .header(CONTENT_LOCATION, Objects.nonNull(userId) ? ResourceUtils.generateResourceInfoWithId(uriInfo, UserResource.class, "getUser", userId) : null)
                        .build();
     }
@@ -63,16 +63,18 @@ public class AuthController {
     @POST
     @Path("/login")
     public Response userLogin(@BeanParam LoginRequest request) {
-        Triplet<Boolean, Boolean, String> userFound_userValid = authService.loginUser(request.getUsername(), request.getPassword());
-        boolean userFound = userFound_userValid.getValue0();
-        boolean userValid = userFound_userValid.getValue1();
+        Quartet<Boolean, Boolean, String, String> userFound_userValid_message_accessToken = authService.loginUser(request.getUsername(), request.getPassword());
+        boolean userFound = userFound_userValid_message_accessToken.getValue0();
+        boolean userValid = userFound_userValid_message_accessToken.getValue1();
 
-        String message = userFound_userValid.getValue2();
+        String message = userFound_userValid_message_accessToken.getValue2();
+        String accessToken = userFound_userValid_message_accessToken.getValue3();
         Status status = userFound ? (userValid ? OK : UNAUTHORIZED) : NOT_FOUND;
 
-        AuthResponse response = AuthResponse.of(status.getStatusCode(), message);
-
-        return Response.status(status).entity(response).build();
+        return Response.status(status)
+                       .entity(AuthResponse.of(status.getStatusCode(), message))
+                       .cookie(new NewCookie("access_token", accessToken, null, "wulfcodes.io", "Basic or JWT Token", DEFAULT_MAX_AGE, false, true))
+                       .build();
     }
 
     @POST

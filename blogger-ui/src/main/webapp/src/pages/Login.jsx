@@ -25,10 +25,10 @@ const Login = () => {
     
         try {
             const result = await formClient.request(userLogin(userData));
-            console.info(result.data);
+            console.info(result);
             navigate('/');
         } catch (error) {
-            console.error(error.response.data);
+            console.error(error);
             setError(error.response.data.message);
         }
     }
