@@ -1,5 +1,6 @@
 package io.wulfcodes.blogger.rest.model.persistent;
 
+import java.util.List;
 import java.util.Objects;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
@@ -22,6 +23,9 @@ public class User implements Persistable<String> {
 
     @Column("u_password")
     private String password;
+
+    // TODO: complete this feature after clarity on post and post endpoints
+    private List<Post> posts;
 
     @Transient
     private Boolean isNewUser;

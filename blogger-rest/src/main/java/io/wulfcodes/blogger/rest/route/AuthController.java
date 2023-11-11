@@ -25,11 +25,13 @@ import static jakarta.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR;
 import static jakarta.ws.rs.core.Response.Status.NOT_FOUND;
 import static jakarta.ws.rs.core.Response.Status.OK;
 import static jakarta.ws.rs.core.Response.Status.CREATED;
+import static jakarta.ws.rs.core.Response.Status.UNAUTHORIZED;
 import static jakarta.ws.rs.core.HttpHeaders.CONTENT_LOCATION;
 import static jakarta.ws.rs.core.MediaType.APPLICATION_FORM_URLENCODED;
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
-import static jakarta.ws.rs.core.Response.Status.UNAUTHORIZED;
+import static jakarta.ws.rs.core.Cookie.DEFAULT_VERSION;
 import static jakarta.ws.rs.core.NewCookie.DEFAULT_MAX_AGE;
+import static jakarta.ws.rs.core.NewCookie.SameSite.NONE;
 
 @Controller
 @Path("/auth")
@@ -73,7 +75,7 @@ public class AuthController {
 
         return Response.status(status)
                        .entity(AuthResponse.of(status.getStatusCode(), message))
-                       .cookie(new NewCookie("access_token", accessToken, null, "wulfcodes.io", "Basic or JWT Token", DEFAULT_MAX_AGE, false, true))
+                       .cookie(new NewCookie("access_token", accessToken, "/", ".wulfcodes.io", DEFAULT_VERSION, "Basic or JWT Token", DEFAULT_MAX_AGE, null, false, true, NONE))
                        .build();
     }
 

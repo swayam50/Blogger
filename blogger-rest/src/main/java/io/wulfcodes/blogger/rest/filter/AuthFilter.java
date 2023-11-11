@@ -10,20 +10,22 @@ import jakarta.ws.rs.container.ResourceInfo;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.core.UriInfo;
 import jakarta.ws.rs.ext.Provider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.context.ApplicationContext;
 import io.wulfcodes.blogger.rest.provider.annotation.Authenticated;
 import io.wulfcodes.blogger.rest.authenticator.Authenticator;
 import io.wulfcodes.blogger.rest.model.response.AuthResponse;
-import org.springframework.stereotype.Component;
+import io.wulfcodes.blogger.rest.model.data.AuthData;
 
 import static jakarta.ws.rs.Priorities.AUTHENTICATION;
-import static jakarta.ws.rs.core.HttpHeaders.AUTHORIZATION;
-import static jakarta.ws.rs.core.HttpHeaders.WWW_AUTHENTICATE;
 import static jakarta.ws.rs.core.Response.Status.OK;
 import static jakarta.ws.rs.core.Response.Status.UNAUTHORIZED;
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+import static org.springframework.http.HttpHeaders.PROXY_AUTHORIZATION;
+import static org.springframework.http.HttpHeaders.WWW_AUTHENTICATE;
+import static org.springframework.http.HttpHeaders.PROXY_AUTHENTICATE;
 
 @Provider
 @Component
@@ -32,10 +34,7 @@ import static jakarta.ws.rs.core.Response.Status.UNAUTHORIZED;
 public class AuthFilter implements ContainerRequestFilter {
 
     @Context
-    ResourceInfo resourceInfo;
-
-    @Context
-    private UriInfo uriInfo;
+    private ResourceInfo resourceInfo;
 
     @Context
     private HttpHeaders httpHeaders;
@@ -50,29 +49,30 @@ public class AuthFilter implements ContainerRequestFilter {
         initialize();
 
         Authenticator actualAuthenticator = applicationContext.getBean(authenticated.by());
-        Authenticator contingencyAuthenticator = applicationContext.getBean(authenticated.or());
+        Authenticator proxyAuthenticator = applicationContext.getBean(authenticated.or());
 
-        String authToken = httpHeaders.getHeaderString(AUTHORIZATION);
+        String actualToken = httpHeaders.getHeaderString(AUTHORIZATION);
+        String proxyToken = httpHeaders.getHeaderString(PROXY_AUTHORIZATION);
 
-        if (Objects.isNull(authToken) || authToken.isBlank()) {
+        if ((Objects.isNull(actualToken) || actualToken.isBlank()) && (Objects.isNull(proxyToken) || proxyToken.isBlank())) {
 
-            requestContext.abortWith(createGenericResponse(null, "Authorization token is missing!"));
+            requestContext.abortWith(createResponse(new AuthData("Authorization token is missing!")));
 
-        } else if (actualAuthenticator.isValidToken(authToken)) {
+        } else if (actualAuthenticator.isValidToken(actualToken)) {
 
-            AuthResponse response = actualAuthenticator.validateToken(authToken, uriInfo);
-            if (response.status().intValue() != OK.getStatusCode())
-                requestContext.abortWith(createGenericResponse(response, actualAuthenticator.getAuthenticationFormat().getRealm()));
+            AuthData authData = actualAuthenticator.validateToken(requestContext, false);
+            if (!authData.isAuthenticated())
+                requestContext.abortWith(createResponse(authData));
 
-        } else if (contingencyAuthenticator.isValidToken(authToken)) {
+        } else if (proxyAuthenticator.isValidToken(proxyToken)) {
 
-            AuthResponse response = contingencyAuthenticator.validateToken(authToken, uriInfo);
-            if (response.status().intValue() != OK.getStatusCode())
-                requestContext.abortWith(createGenericResponse(response, actualAuthenticator.getAuthenticationFormat().getRealm()));
+            AuthData authData = proxyAuthenticator.validateToken(requestContext, true);
+            if (!authData.isAuthenticated())
+                requestContext.abortWith(createResponse(authData));
 
         } else {
 
-            requestContext.abortWith(createGenericResponse(null, null));
+            requestContext.abortWith(createResponse(new AuthData()));
 
         }
     }
@@ -91,14 +91,12 @@ public class AuthFilter implements ContainerRequestFilter {
         }
     }
 
-    private Response createGenericResponse(AuthResponse response, String message) {
-        if (Objects.isNull(response))
-            response = AuthResponse.of(UNAUTHORIZED.getStatusCode(), Objects.nonNull(message) && !message.isBlank() ? message : "Invalid authorization token!");
-
-        return Response.status(response.status())
-                .entity(response)
-                .header(WWW_AUTHENTICATE, message)
-                .build();
+    private Response createResponse(AuthData authData) {
+        return Response.status(authData.obtainStatus())
+                       .entity(AuthResponse.of(authData.obtainStatus(), authData.obtainMessage()))
+                       .header(WWW_AUTHENTICATE, !authData.isProxy() ? authData.obtainRealm() : null)
+                       .header(PROXY_AUTHENTICATE, authData.isProxy() ? authData.obtainRealm() : null)
+                       .build();
     }
 
 }

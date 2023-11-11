@@ -9,7 +9,8 @@ export const userRegistration = userData => ({
 export const userLogin = userData => ({
     method: 'post',
     url: '/auth/login',
-    data: new URLSearchParams(userData)
+    data: new URLSearchParams(userData),
+    withCredentials: true
 });
 
 export const userLogout = () => ({

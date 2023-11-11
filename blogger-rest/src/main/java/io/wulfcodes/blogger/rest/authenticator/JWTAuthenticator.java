@@ -1,9 +1,10 @@
 package io.wulfcodes.blogger.rest.authenticator;
 
-import jakarta.ws.rs.core.UriInfo;
+import jakarta.ws.rs.container.ContainerRequestContext;
 import org.springframework.stereotype.Component;
+import io.wulfcodes.blogger.rest.exception.ValidationException;
+import io.wulfcodes.blogger.rest.model.data.AuthData;
 import io.wulfcodes.blogger.rest.model.value.AuthenticationFormat;
-import io.wulfcodes.blogger.rest.model.response.AuthResponse;
 
 import static io.wulfcodes.blogger.rest.model.value.AuthenticationFormat.JWT;
 
@@ -11,8 +12,9 @@ import static io.wulfcodes.blogger.rest.model.value.AuthenticationFormat.JWT;
 public class JWTAuthenticator implements Authenticator {
 
     @Override
-    public AuthResponse validateToken(String authToken, UriInfo uriInfo) {
-        return null;
+    public AuthData validateToken(ContainerRequestContext requestContext, boolean proxy) throws ValidationException {
+        // TODO: write logic for jwt authenticator
+        return new AuthData();
     }
 
     @Override
