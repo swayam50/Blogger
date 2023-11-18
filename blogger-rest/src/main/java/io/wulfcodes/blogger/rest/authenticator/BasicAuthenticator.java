@@ -41,7 +41,7 @@ public class BasicAuthenticator implements Authenticator {
                                String postId = requestContext.getUriInfo().getPathParameters().getFirst("postId");
 
                                if (!passwordEncoder.matches(password, user.getPassword()))
-                                   return new AuthData("User not present!", proxy, getAuthenticationFormat().getRealm());
+                                   return new AuthData("Invalid credentials!", proxy, getAuthenticationFormat().getRealm());
                                else if (Objects.nonNull(userId) && !user.getId().equals(userId))
                                    return new AuthData(FORBIDDEN.getStatusCode(), "Not allowed to access this user's information!", proxy, getAuthenticationFormat().getRealm());
                                else if (Objects.nonNull(postId)) // TODO: Add another && condition to check postId is valid or not, get postId from List<Post> aggregate whatever used in User Model

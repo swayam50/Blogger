@@ -8,7 +8,7 @@ const WritePost = () => {
     return (
         <div className="write-post">
             <div className="editor">
-                <input className="title" type="text" placeholder="Title" value={title} />
+                <input className="title" type="text" placeholder="Title" value={title} onChange={setTitle} />
                 <ReactQuill className="content" theme="snow" placeholder="Your Content Here..." value={content} onChange={setContent} />
             </div>
             <div className="menu">

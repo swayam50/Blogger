@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 import { formClient } from '../configs/axios-conf';
 import { userLogin } from '../apis/AuthEndpoints';
 
 const Login = () => {
+    const [cookies, setCookie, removeCookie] = useCookies(['access_token', 'proxy_token']);
+
     const [formInputs, setFormInputs] = useState({
         username: '',
         password: ''
@@ -24,12 +27,16 @@ const Login = () => {
         let userData = {...formInputs};
     
         try {
-            const result = await formClient.request(userLogin(userData));
-            console.info(result);
+            const response = await formClient.request(userLogin(userData));
+            console.info(response);
+
+            setCookie('access_token', response.headers['x-access-token']);
+            setCookie('proxy_token', response.headers['x-proxy-token']);
+
             navigate('/');
         } catch (error) {
             console.error(error);
-            setError(error.response.data.message);
+            setError(error.response.data.message || 'Something wrong happened!');
         }
     }
 

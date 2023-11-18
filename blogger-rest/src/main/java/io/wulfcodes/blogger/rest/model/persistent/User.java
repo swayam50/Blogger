@@ -25,7 +25,7 @@ public class User implements Persistable<String> {
     private String password;
 
     // TODO: complete this feature after clarity on post and post endpoints
-    private List<Post> posts;
+    // private List<Post> posts;
 
     @Transient
     private Boolean isNewUser;

@@ -1,5 +1,6 @@
 package io.wulfcodes.blogger.rest.route;
 
+import java.util.Base64;
 import java.util.Objects;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.BeanParam;
@@ -20,6 +21,7 @@ import io.wulfcodes.blogger.rest.model.request.LoginRequest;
 import io.wulfcodes.blogger.rest.model.response.AuthResponse;
 import io.wulfcodes.blogger.rest.util.ResourceUtils;
 
+import static java.nio.charset.StandardCharsets.ISO_8859_1;
 import static jakarta.ws.rs.core.Response.Status.CONFLICT;
 import static jakarta.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR;
 import static jakarta.ws.rs.core.Response.Status.NOT_FOUND;
@@ -71,10 +73,13 @@ public class AuthController {
 
         String message = userFound_userValid_message_accessToken.getValue2();
         String accessToken = userFound_userValid_message_accessToken.getValue3();
+        String proxyToken = Base64.getEncoder().encodeToString(String.format("%s:%s", request.getUsername(), request.getPassword()).getBytes(ISO_8859_1));
         Status status = userFound ? (userValid ? OK : UNAUTHORIZED) : NOT_FOUND;
 
         return Response.status(status)
                        .entity(AuthResponse.of(status.getStatusCode(), message))
+                       .header("X-Access-Token", accessToken)
+                       .header("X-Proxy-Token", proxyToken)
                        .cookie(new NewCookie("access_token", accessToken, "/", ".wulfcodes.io", DEFAULT_VERSION, "Basic or JWT Token", DEFAULT_MAX_AGE, null, false, true, NONE))
                        .build();
     }

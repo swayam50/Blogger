@@ -20,8 +20,6 @@ import io.wulfcodes.blogger.rest.model.response.AuthResponse;
 import io.wulfcodes.blogger.rest.model.data.AuthData;
 
 import static jakarta.ws.rs.Priorities.AUTHENTICATION;
-import static jakarta.ws.rs.core.Response.Status.OK;
-import static jakarta.ws.rs.core.Response.Status.UNAUTHORIZED;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpHeaders.PROXY_AUTHORIZATION;
 import static org.springframework.http.HttpHeaders.WWW_AUTHENTICATE;
