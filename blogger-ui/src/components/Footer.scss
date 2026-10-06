@@ -1,0 +1,28 @@
+@mixin footer($bg-unused) {
+    margin-top: 100px;
+    padding: 20px 40px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #ccc;
+    box-shadow: var(--glass-shadow);
+            
+    img {          
+        height: 45px;
+        filter: drop-shadow(0px 0px 5px rgba(255,255,255,0.2));
+    }
+
+    strong {
+        color: var(--primary-teal);
+
+        &:nth-child(1) {
+            font-size: 16px;
+        }
+    }
+}

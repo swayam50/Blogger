@@ -1,0 +1,107 @@
+@mixin header {
+    .header-container {
+        padding: 15px 30px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: var(--glass-bg);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid var(--glass-border);
+        border-radius: 16px;
+        box-shadow: var(--glass-shadow);
+        margin-bottom: 40px;
+
+        .logo {
+            img {
+                width: 120px;
+                filter: drop-shadow(0px 0px 5px rgba(255,255,255,0.2));
+            }
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+
+            .links {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+    
+                .link {
+                    position: relative;
+
+                    h6 {
+                        font-size: 16px;
+                        font-weight: 500;
+                        letter-spacing: 1px;
+                        color: #e0e0e0;
+                        transition: color 0.3s ease;
+                    }
+
+                    &:after {
+                        content: '';
+                        position: absolute;
+                        width: 100%;
+                        transform: scaleX(0);
+                        height: 2px;
+                        bottom: -4px;
+                        left: 0;
+                        background-color: var(--primary-teal);
+                        transform-origin: bottom right;
+                        transition: transform 0.3s ease-out;
+                        border-radius: 2px;
+                    }
+
+                    &:hover {
+                        h6 { color: #ffffff; }
+                        &:after {
+                            transform: scaleX(1);
+                            transform-origin: bottom left;
+                        }
+                    }
+                }
+            }
+
+            .profile {
+                display: flex;
+                gap: 15px;
+                span {
+                    font-weight: 400;
+                    cursor: pointer;
+                    color: #cfcfcf;
+                    transition: color 0.2s;
+                    &:hover { color: #fff; }
+                }
+            }
+
+            .write {
+                background: linear-gradient(135deg, var(--primary-teal), #007bb5);
+                width: auto;
+                height: auto;
+                padding: 10px 20px;
+                border-radius: 25px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 600;
+                border: none;
+                box-shadow: 0 4px 15px rgba(0, 229, 255, 0.4);
+                transition: all 0.3s ease;
+                color: #000;
+
+                .link { color: #fff; }
+
+                &:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 6px 20px rgba(0, 229, 255, 0.6);
+                }
+
+                &:active {
+                    transform: scale(0.95);
+                }
+            }
+        }
+    }
+}

@@ -10,7 +10,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>blogger-ui</module>
         <module>blogger-rest</module>
     </modules>
 

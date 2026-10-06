@@ -1,17 +1,34 @@
 package io.wulfcodes.blogger.rest.model.persistent;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 import static java.time.ZoneOffset.UTC;
 
+@Table(name = "posts")
 public class Post {
 
+    @Id
+    @Column("p_id")
     private Long id;
+
+    @Column("p_title")
     private String title;
+
+    @Column("p_description")
     private String description;
+
+    @Column("p_image")
     private String image;
+
+    @Column("p_publishedOn")
     private LocalDateTime publishedOn;
+
+    @Column("u_id")
     private String userId;
 
     public Post() {}

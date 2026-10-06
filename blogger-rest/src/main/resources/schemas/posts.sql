@@ -4,7 +4,7 @@ CREATE TABLE `posts` (
     `p_description`    VARCHAR(255),
     `p_image`          TEXT,
     `p_publishedOn`    DATETIME,
-    `u_id`             String,
+    `u_id`             VARCHAR(255),
 
     PRIMARY KEY (`p_id`),
     FOREIGN KEY (`u_id`) REFERENCES users(`u_id`)

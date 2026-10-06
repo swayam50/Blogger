@@ -1,0 +1,55 @@
+@import './components/Header.scss';
+@import './components/Footer.scss';
+@import './pages/Auth.scss';
+@import './pages/Home.scss';
+@import './pages/ReadPost.scss';
+@import './pages/WritePost.scss';
+
+:root {
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    --primary-teal: #00e5ff;
+    --primary-teal-hover: #00b8cc;
+}
+
+.app {
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px 0;
+
+    .link {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .app-container {
+        width: 80vw;
+        max-width: 1400px;
+
+        header {
+            @include header;
+        }
+
+        .auth {
+            @include auth(transparent);
+        }
+
+        .home {
+            @include home;
+        }
+
+        .read-post {
+            @include read-post;
+        }
+
+        .write-post {
+            @include write-post;
+        }
+
+        footer {
+            @include footer(transparent);
+        }
+    }
+}

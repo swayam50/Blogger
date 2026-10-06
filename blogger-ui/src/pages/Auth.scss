@@ -1,0 +1,124 @@
+@mixin auth($bg-unused) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+
+    form {
+        display: flex;
+        flex-direction: column;
+        padding: 50px;
+        border-radius: 24px;
+        background: var(--glass-bg);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid var(--glass-border);
+        box-shadow: var(--glass-shadow);
+        width: 450px;
+        gap: 30px;
+        color: white;
+
+        h1 {
+            font-size: 24px;
+            letter-spacing: 2px;
+            align-self: center;
+            color: var(--primary-teal);
+            font-weight: 600;
+        }
+        
+        .profile-pic-input {
+            align-self: center;
+            border: 2px dashed var(--primary-teal);
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            overflow: hidden;
+            position: relative;
+            background: rgba(0,0,0,0.2);
+            transition: all 0.3s;
+
+            &:hover {
+                transform: scale(1.05);
+                border-style: solid;
+            }
+
+            input[type="file"] {
+                display: none;
+            }
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            label {
+                display: block;
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0; left: 0;
+                cursor: pointer;
+            }
+        }
+
+        input {
+            padding: 15px 20px;
+            border: none;
+            border-radius: 12px;
+            background: rgba(0,0,0,0.2);
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+
+            &::placeholder {
+                color: rgba(255,255,255,0.5);
+            }
+
+            &:focus {
+                outline: none;
+                background: rgba(0,0,0,0.4);
+                border: 1px solid var(--primary-teal);
+            }
+        }
+
+        button {
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary-teal), #007bb5);
+            cursor: pointer;
+            color: #000;
+            font-weight: 700;
+            font-size: 16px;
+            transition: all 0.3s;
+
+            &:hover {
+                box-shadow: 0 4px 15px rgba(0, 229, 255, 0.4);
+                transform: translateY(-2px);
+            }
+            &:active {
+                transform: scale(0.95);
+            }
+        }
+
+        p {
+            font-size: 14px;
+            color: #ff6b6b;
+            text-align: center;
+        }
+  
+        span {
+            font-size: 14px;
+            text-align: center;
+            color: #ccc;
+            a {
+                color: var(--primary-teal);
+                text-decoration: none;
+                &:hover { text-decoration: underline; }
+            }
+        }
+    }
+}

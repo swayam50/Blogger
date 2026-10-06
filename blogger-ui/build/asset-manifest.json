@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.165afa4c.css",
+    "main.js": "/static/js/main.8fa43d82.js",
+    "static/media/blogger-logo-no-background.png": "/static/media/blogger-logo-no-background.ddece83078b8462c3414.png",
+    "static/media/blogger-logo-white.png": "/static/media/blogger-logo-white.6db6ef5aedb8d19ccac8.png",
+    "static/media/default-prof.jpg": "/static/media/default-prof.6591a5ea7bee6e3e14d0.jpg",
+    "index.html": "/index.html",
+    "main.165afa4c.css.map": "/static/css/main.165afa4c.css.map",
+    "main.8fa43d82.js.map": "/static/js/main.8fa43d82.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.165afa4c.css",
+    "static/js/main.8fa43d82.js"
+  ]
+}
